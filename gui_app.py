@@ -1,9 +1,23 @@
+import sys
+import os
+
+if len(sys.argv) > 1 and sys.argv[1] == '--run-bot':
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', line_buffering=True)
+    sys.stderr = sys.stdout
+    import runpy
+    bot_script = os.path.join(sys._MEIPASS, "AtoZ-Bot.py") if getattr(sys, 'frozen', False) else os.path.join(os.path.dirname(os.path.abspath(__file__)), "AtoZ-Bot.py")
+    try:
+        runpy.run_path(bot_script, run_name="__main__")
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+    sys.exit(0)
+
 import flet as ft
 import json
-import os
 import subprocess
 import threading
-import sys
 import traceback
 
 def get_base_path():
@@ -117,8 +131,12 @@ def main(page: ft.Page):
             return
 
         try:
+            cmd = [sys.executable, "--run-bot"]
+            if not getattr(sys, 'frozen', False):
+                cmd = [sys.executable, "-u", os.path.abspath(__file__), "--run-bot"]
+                
             bot_process = subprocess.Popen(
-                [sys.executable, "-u", BOT_SCRIPT],  # '-u' forces unbuffered output
+                cmd,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 text=True,
