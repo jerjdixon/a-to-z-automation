@@ -37,13 +37,7 @@ def build_executable():
          print("Detected macOS. Building .app")
          # macOS requires colon separator for add-data
          args = [arg.replace(';.', ':.') for arg in args]
-         
-         # Note: We do NOT use --windowed for Flet apps on macOS that spawn subprocesses or need stdout visibility. 
-         # Flet natively runs in its own window anyway. `--windowed` (which implies `--noconsole`) 
-         # often causes instant crashes on macOS for complex GUI wrappers. 
-         
-         # Ad-hoc codesign the .app bundle to prevent macOS Gatekeeper from killing it instantly
-         args.append('--codesign-identity=-')
+         args.append('--windowed')
          
     try:
         PyInstaller.__main__.run(args)

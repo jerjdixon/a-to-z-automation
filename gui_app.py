@@ -111,7 +111,7 @@ def main(page: ft.Page):
     
     def log_message(msg):
         log_output.controls.append(ft.Text(msg, selectable=True, font_family="Consolas"))
-        page.update()
+        log_output.update()
 
     def read_output(proc):
         while True:
