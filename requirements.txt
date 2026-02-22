@@ -3,3 +3,4 @@ flet-desktop
 undetected-chromedriver
 selenium
 pyinstaller
+certifi
