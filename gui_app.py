@@ -67,7 +67,6 @@ def main(page: ft.Page):
         color_scheme=ft.ColorScheme(
             primary="#FF9900",       # Amazon Orange
             secondary="#146eb4",     # Amazon Blue
-            background="#121212", 
             surface="#1E1E1E",
             on_surface="#E0E0E0"
         )
@@ -89,7 +88,7 @@ def main(page: ft.Page):
     days_of_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     selected_days = config.get("WEEKDAYS", [])
     for day in days_of_week:
-        cb = ft.Checkbox(label=day, value=(day in selected_days), fill_color=ft.colors.PRIMARY, on_change=lambda e: handle_save())
+        cb = ft.Checkbox(label=day, value=(day in selected_days), fill_color=ft.Colors.PRIMARY, on_change=lambda e: handle_save())
         weekdays_controls.append(cb)
 
     bot_process = None
@@ -173,7 +172,7 @@ def main(page: ft.Page):
             
             save_config(config)
         except Exception as ex:
-            snack = ft.SnackBar(ft.Text(f"Error saving settings: {ex}"), bgcolor=ft.colors.RED)
+            snack = ft.SnackBar(ft.Text(f"Error saving settings: {ex}"), bgcolor=ft.Colors.RED)
             page.snack_bar = snack
             snack.open = True
             page.update()
@@ -182,10 +181,10 @@ def main(page: ft.Page):
     start_btn = ft.ElevatedButton(
         "Start Automation", 
         on_click=start_bot, 
-        icon=ft.icons.PLAY_ARROW_ROUNDED, 
+        icon=ft.Icons.PLAY_ARROW_ROUNDED, 
         style=ft.ButtonStyle(
-            color=ft.colors.WHITE, 
-            bgcolor=ft.colors.PRIMARY,
+            color=ft.Colors.WHITE, 
+            bgcolor=ft.Colors.PRIMARY,
             shape=ft.RoundedRectangleBorder(radius=8),
             padding=20
         ),
@@ -194,11 +193,11 @@ def main(page: ft.Page):
     stop_btn = ft.ElevatedButton(
         "Stop Bot", 
         on_click=stop_bot, 
-        icon=ft.icons.STOP_ROUNDED, 
+        icon=ft.Icons.STOP_ROUNDED, 
         disabled=True, 
         style=ft.ButtonStyle(
-            color=ft.colors.WHITE, 
-            bgcolor=ft.colors.ERROR,
+            color=ft.Colors.WHITE, 
+            bgcolor=ft.Colors.ERROR,
             shape=ft.RoundedRectangleBorder(radius=8),
             padding=20
         ),
@@ -208,11 +207,11 @@ def main(page: ft.Page):
     def create_card(title, content_controls):
         return ft.Container(
             content=ft.Column([
-                ft.Text(title, size=18, weight=ft.FontWeight.BOLD, color=ft.colors.ON_SURFACE),
+                ft.Text(title, size=18, weight=ft.FontWeight.BOLD, color=ft.Colors.ON_SURFACE),
                 ft.Container(height=5),
                 *content_controls
             ]),
-            bgcolor=ft.colors.SURFACE,
+            bgcolor=ft.Colors.SURFACE,
             padding=20,
             border_radius=12,
             border=ft.border.all(1, "#333333"),
@@ -226,7 +225,7 @@ def main(page: ft.Page):
             expand=4,
             padding=25,
             content=ft.Column([
-                ft.Text("Configuration", size=24, weight=ft.FontWeight.W_800, color=ft.colors.PRIMARY),
+                ft.Text("Configuration", size=24, weight=ft.FontWeight.W_800, color=ft.Colors.PRIMARY),
                 ft.Container(height=10),
                 create_card("Execution Settings", [
                     ft.Row([hours_to_run_input, seconds_between_checks_input])
@@ -237,7 +236,7 @@ def main(page: ft.Page):
                     ft.Container(height=5),
                     longest_shift_input,
                     ft.Container(height=10),
-                    ft.Text("Active Days:", size=14, weight=ft.FontWeight.W_500, color=ft.colors.ON_SURFACE),
+                    ft.Text("Active Days:", size=14, weight=ft.FontWeight.W_500, color=ft.Colors.ON_SURFACE),
                     ft.Row(weekdays_controls, wrap=True)
                 ])
             ], scroll=ft.ScrollMode.AUTO)
@@ -250,11 +249,11 @@ def main(page: ft.Page):
             bgcolor="#171717",
             border=ft.border.only(left=ft.border.BorderSide(1, "#333333")),
             content=ft.Column([
-                ft.Text("Dashboard", size=24, weight=ft.FontWeight.W_800, color=ft.colors.WHITE),
+                ft.Text("Dashboard", size=24, weight=ft.FontWeight.W_800, color=ft.Colors.WHITE),
                 ft.Container(height=10),
                 ft.Row([start_btn, stop_btn]),
                 ft.Container(height=20),
-                ft.Text("Live Protocol Console", size=14, weight=ft.FontWeight.BOLD, color=ft.colors.ON_SURFACE),
+                ft.Text("Live Protocol Console", size=14, weight=ft.FontWeight.BOLD, color=ft.Colors.ON_SURFACE),
                 ft.Container(
                     content=log_output,
                     expand=True,
