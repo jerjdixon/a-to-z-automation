@@ -17,8 +17,8 @@ def build_executable():
         '--noconfirm',
         '--add-data=config.json;.', # Default Config
         '--add-data=AtoZ-Bot.py;.', # Bot Script itself
-        '--hidden-import=selenium',
-        '--hidden-import=undetected_chromedriver',
+        '--collect-all=selenium',
+        '--collect-all=undetected_chromedriver',
         '--hidden-import=requests',
         '--hidden-import=flet_desktop', 
         '--collect-all=flet_desktop',
