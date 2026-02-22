@@ -19,6 +19,7 @@ def build_executable():
         '--add-data=AtoZ-Bot.py;.', # Bot Script itself
         '--hidden-import=flet_desktop', 
         '--collect-all=flet_desktop',
+        '--collect-all=flet',
     ]
     
     # OS Specific adjustments
