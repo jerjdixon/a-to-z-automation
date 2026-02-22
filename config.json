@@ -1,14 +1,10 @@
 {
     "STALL_AFTER_LOGIN": 2,
-    "EARLIEST_TIME": "18:15",
-    "LATEST_TIME": "18:30",
+    "EARLIEST_TIME": "00:00",
+    "LATEST_TIME": "23:59",
     "LONGEST_SHIFT": 10.0,
-    "WEEKDAYS": [
-        "Monday",
-        "Tuesday",
-        "Sunday"
-    ],
-    "Amazon_Login": "jerdix",
+    "WEEKDAYS": [],
+    "Amazon_Login": "",
     "HOURS_TO_RUN": 48.0,
     "SECONDS_BETWEEN_CHECKS": 15
 }
