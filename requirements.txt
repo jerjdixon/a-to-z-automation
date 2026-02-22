@@ -1,0 +1,4 @@
+flet
+undetected-chromedriver
+selenium
+pyinstaller

@@ -1,0 +1,40 @@
+name: Build Executables
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Build with PyInstaller
+      run: python build.py
+      
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: Amazon_Shift_Picker-${{ matrix.os }}
+        path: |
+          dist/*.exe
+          dist/*.app
+          dist/*/
