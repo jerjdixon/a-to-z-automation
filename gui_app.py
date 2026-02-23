@@ -111,7 +111,7 @@ def main(page: ft.Page):
     
     def log_message(msg):
         log_output.controls.append(ft.Text(msg, selectable=True, font_family="Consolas"))
-        log_output.update()
+        page.update()
 
     def read_output(proc):
         while True:
@@ -297,4 +297,6 @@ def main(page: ft.Page):
     page.window_prevent_close = True
 
 if __name__ == "__main__":
+    import multiprocessing
+    multiprocessing.freeze_support()
     ft.app(target=main)
