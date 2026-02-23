@@ -114,15 +114,15 @@ def main(page: ft.Page):
         page.update()
 
     def read_output(proc):
+        import time
         while True:
             line = proc.stdout.readline()
             if not line:
                 break
-            # Use call_soon to safely update UI from background thread (optional, but good practice in flet)
             log_message(line.strip())
+            time.sleep(0.01) # Yield GIL to Flet asyncio event loop!
         proc.wait()
         log_message("--- Bot process terminated ---")
-        page.update()
 
     def start_bot(e):
         nonlocal bot_process
@@ -135,13 +135,17 @@ def main(page: ft.Page):
             if not getattr(sys, 'frozen', False):
                 cmd = [sys.executable, "-u", os.path.abspath(__file__), "--run-bot"]
                 
+            env = os.environ.copy()
+            env["PYTHONUNBUFFERED"] = "1"
+            
             bot_process = subprocess.Popen(
                 cmd,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 text=True,
                 bufsize=1,
-                creationflags=subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0
+                creationflags=subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0,
+                env=env
             )
             # Daemon thread to read stdout
             threading.Thread(target=read_output, args=(bot_process,), daemon=True).start()
