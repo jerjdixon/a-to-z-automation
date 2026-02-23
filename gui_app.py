@@ -3,7 +3,7 @@ import os
 
 if len(sys.argv) > 1 and sys.argv[1] == '--run-bot':
     import io
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', line_buffering=True)
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', line_buffering=True, write_through=True)
     sys.stderr = sys.stdout
     import runpy
     bot_script = os.path.join(sys._MEIPASS, "AtoZ-Bot.py") if getattr(sys, 'frozen', False) else os.path.join(os.path.dirname(os.path.abspath(__file__)), "AtoZ-Bot.py")
